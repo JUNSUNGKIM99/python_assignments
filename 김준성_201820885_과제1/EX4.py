@@ -1,0 +1,12 @@
+setA = set([1,2,3,4,6,8,12,24])
+setB = set([1,2,3,4,36,6,9,12,18]) #setA, setB initialize (integer)
+set_union = set.union(setA, setB) # setA | setB assign (합집함) 
+set_inter = set.intersection(setA, setB) # setA & setB assign (교집합))
+set_diff = set.difference(setB, setA) # setB - setA assign (차집합) 순수한 B만 남음 
+set_sym = set.symmetric_difference(setA, setB) # setA ^ setB assign (교집합을 제외한 부분)
+print("SetA", setA)
+print("SetB", setB)
+print("Union", set_union)
+print("intersection", set_inter)
+print("Difference", set_diff)
+print("Symmetric Difference", set_sym)
