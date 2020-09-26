@@ -1,7 +1,6 @@
 #!/usr/bin/python3.8
 
 import sys 
-import string 
 class SimpleCPU:
     '''
 SimpleCPU 모듈
@@ -26,15 +25,11 @@ SimpleCPU 모듈
            
             for size in range(OP_CODE + 1,  len(self.inst_mem[index-1])):
                 self.inst_mem[index-1][size] = int(self.inst_mem[index-1][size])
-       #for i in range(MEM_INDEX, len(self.inst_mem)):
-        #    print(self.inst_mem[i][OP_CODE])
-       #print(len(self.inst_mem))
-       # print(self.inst_mem[self.ip][MEM_DST_REG], self.inst_mem[self.ip][MEM_MEM])
        
-            while self.ip < len(self.inst_mem):
+        while self.ip < len(self.inst_mem):
 
              opcode = self.inst_mem[self.ip][OP_CODE]
-            # print(self.ip, self.mem, self.reg)
+         #    print(self.ip, self.mem, self.reg)
              if opcode == 'ld':
                  try:
                     self.reg[self.inst_mem[self.ip][MEM_DST_REG]] = self.mem[self.inst_mem[self.ip][MEM_MEM]]
@@ -64,51 +59,156 @@ SimpleCPU 모듈
                           print(f"SimpleCPU_MEMIndexError | IP:{self.ip} | {inst_e} | {mem_e} | 0, {len(self.mem) -1}")
                           exit(1)
              elif opcode == 'add':
-                 self.reg[self.inst_mem[self.ip][ARITH_DST]] = self.reg[self.inst_mem[self.ip][ARITH_SRC1]] + self.reg[self.inst_mem[self.ip][ARITH_SRC2]]
-                 self.ip += 1
+                   try:
+                       self.reg[self.inst_mem[self.ip][ARITH_DST]] = self.reg[self.inst_mem[self.ip][ARITH_SRC1]] + self.reg[self.inst_mem[self.ip][ARITH_SRC2]]
+                       self.ip += 1
+                   except:
+                       dst_e = self.inst_mem[self.ip][ARITH_DST]
+                       src1_e = self.inst_mem[self.ip][ARITH_SRC1]
+                       src2_e = self.inst_mem[self.ip][ARITH_SRC2]
+                       inst_e = program[self.ip + 1].replace('\n','')
+                       if dst_e > len(self.reg) -1 :
+                           print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {dst_e} | 0, {len(self.reg)-1}")
+                           exit(1)
+                       elif src1_e > len(self.reg) -1:
+                           print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {src1_e} | 0, {len(self.reg)-1}")
+                           exit(1)
+                       elif src2_e > len(self.reg) -1:
+                           print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {src2_e} | 0, {len(self.reg)-1}")
+                           exit(1)
              elif opcode == 'sub':
-                 self.reg[self.inst_mem[self.ip][ARITH_DST]] = self.reg[self.inst_mem[self.ip][ARITH_SRC1]] - self.reg[self.inst_mem[self.ip][ARITH_SRC2]]
-                 self.ip += 1
+                   try:
+                       self.reg[self.inst_mem[self.ip][ARITH_DST]] = self.reg[self.inst_mem[self.ip][ARITH_SRC1]] - self.reg[self.inst_mem[self.ip][ARITH_SRC2]]
+                       self.ip += 1
+                   except:
+                       dst_e = self.inst_mem[self.ip][ARITH_DST]
+                       src1_e = self.inst_mem[self.ip][ARITH_SRC1]
+                       src2_e = self.inst_mem[self.ip][ARITH_SRC2]
+                       inst_e = program[self.ip + 1].replace('\n','')
+                       if dst_e > len(self.reg) -1 :
+                          print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {dst_e} | 0, {len(self.reg)-1}")
+                          exit(1)
+                       elif src1_e > len(self.reg) -1:
+                          print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {src1_e} | 0, {len(self.reg)-1}")
+                          exit(1) 
+                       elif src2_e > len(self.reg) -1:
+                          print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {src2_e} | 0, {len(self.reg)-1}")
+                          exit(1)
              elif opcode == 'mul':
-                 self.reg[self.inst_mem[self.ip][ARITH_DST]] = self.reg[self.inst_mem[self.ip][ARITH_SRC1]] * self.reg[self.inst_mem[self.ip][ARITH_SRC2]]
-                 self.ip += 1
+                   try:
+                       self.reg[self.inst_mem[self.ip][ARITH_DST]] = self.reg[self.inst_mem[self.ip][ARITH_SRC1]] * self.reg[self.inst_mem[self.ip][ARITH_SRC2]]
+                       self.ip += 1
+                   except:
+                       dst_e = self.inst_mem[self.ip][ARITH_DST]
+                       src1_e = self.inst_mem[self.ip][ARITH_SRC1]
+                       src2_e = self.inst_mem[self.ip][ARITH_SRC2]
+                       inst_e = program[self.ip + 1].replace('\n','')
+                       if dst_e > len(self.reg) -1 :
+                          print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {dst_e} | 0, {len(self.reg)-1}")
+                          exit(1)
+                       elif src1_e > len(self.reg) -1:
+                          print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {src1_e} | 0, {len(self.reg)-1}")
+                          exit(1)
+                       elif src2_e > len(self.reg) -1:
+                          print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {src2_e} | 0, {len(self.reg)-1}")
+                          exit(1)
              elif opcode == 'div':
-                 self.reg[self.inst_mem[self.ip][ARITH_DST]] = self.reg[self.inst_mem[self.ip][ARITH_SRC1]] / self.reg[self.inst_mem[self.ip][ARITH_SRC2]]
-                 self.  ip += 1    
+                   try:
+                       self.reg[self.inst_mem[self.ip][ARITH_DST]] = self.reg[self.inst_mem[self.ip][ARITH_SRC1]] / self.reg[self.inst_mem[self.ip][ARITH_SRC2]]
+                       self.ip += 1   
+                   except:
+                       dst_e = self.inst_mem[self.ip][ARITH_DST]
+                       src1_e = self.inst_mem[self.ip][ARITH_SRC1]
+                       src2_e = self.inst_mem[self.ip][ARITH_SRC2]
+                       inst_e = program[self.ip + 1].replace('\n','') 
+                       if dst_e > len(self.reg) -1 :
+                          print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {dst_e} | 0, {len(self.reg)-1}")
+                          exit(1)
+                       elif src1_e > len(self.reg) -1:
+                          print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {src1_e} | 0, {len(self.reg)-1}")
+                          exit(1)
+                       elif src2_e > len(self.reg) -1:
+                          print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {src2_e} | 0, {len(self.reg)-1}")
+                          exit(1)
              elif opcode == 'jump':
-                 self.ip = self.inst_mem[self.ip][JUMP_INST_IDX]
+                   try:
+                       ip_check = self.ip
+                       self.ip = self.inst_mem[self.ip][JUMP_INST_IDX]
+                       ip_except_check = self.inst_mem[self.ip]
+                       continue
+                   except:
+                       inst_e = program[ip_check + 1].replace('\n', '')
+                       print(f"SimpleCPU_IPIndexError | IP:{ip_check} | {inst_e} | {self.ip} | 0, {len(self.inst_mem)-1}")
+                       exit(1)
              elif opcode == 'beq':
-                 if self.reg[self.inst_mem[self.ip][BRAM_SRC1]] == self.reg[self.inst_mem[self.ip][BRAN_SRC2]]:
-                     self.ip = self.inst_mem[self.ip][BRAN_INST_IDX]
-                     continue
-                 self.ip += 1
+                   try:
+                       if self.reg[self.inst_mem[self.ip][BRAM_SRC1]] == self.reg[self.inst_mem[self.ip][BRAN_SRC2]]:
+                          ip_check = self.ip
+                          self.ip = self.inst_mem[self.ip][BRAN_INST_IDX]
+                          ip_except_check = self.inst_mem[self.ip]
+                          continue
+                       self.ip += 1
+                   except:
+                        if self.ip > len(self.inst_mem):
+                            inst_ip_e = program[ip_check + 1].replace('\n','')
+                            print(f"SimpleCPU_IPIndexError | IP:{ip_check} | {inst_ip_e} | {self.ip} | 0 , {len(self.inst_mem)-1}")
+                            exit(1)
+
+                        reg1_e = self.inst_mem[self.ip][BRAN_SRC1]
+                        reg2_e = self.inst_mem[self.ip][BRAN_SRC2]
+                        inst_e = program[self.ip + 1].replace('\n', '')
+                        if reg1_e > len(self.reg) - 1 :
+                             print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {reg1_e} | 0, {len(self.reg) -1 }")
+                             exit(1)
+                        elif reg2_e > len(self.reg) - 1:
+                             print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {reg2_e} | 0, {len(self.reg) -1}")
+                             exit(1)
              elif opcode == 'ble':
                    try:
                        if self.reg[self.inst_mem[self.ip][BRAN_SRC1]] <= self.reg[self.inst_mem[self.ip][BRAN_SRC2]]:
-                           ip_tmp = self.ip
-                           inst_e = program[ip_tmp + 1].replace('\n','')
+                           ip_check = self.ip 
                            self.ip = self.inst_mem[self.ip][BRAN_INST_IDX]
-                           if self.ip > len(self.inst_mem) - 1:
-                                print(f"SimpleCPU_IPIndexError | IP:{ip_tmp} | {inst_e} | {self.ip} | 0, {len(self.inst_mem)}")
-                                exit(1)
+                           ip_except_check = self.inst_mem[self.ip]
                            continue
                        self.ip += 1 
-                   except: 
+                   except:
+                      if self.ip > len(self.inst_mem):
+                           inst_ip_e = program[ip_check + 1].replace('\n','')
+                           print(f"SimpleCPU_IPIndexError | IP:{ip_check} | {inst_ip_e} | {self.ip} | 0 , {len(self.inst_mem)-1}")
+                           exit(1)
+
                       reg1_e = self.inst_mem[self.ip][BRAN_SRC1]
                       reg2_e = self.inst_mem[self.ip][BRAN_SRC2]
                       inst_e = program[self.ip + 1].replace('\n', '')
                       if reg1_e > len(self.reg) - 1 :
                             print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {reg1_e} | 0, {len(self.reg) -1 }")
                             exit(1)
-                      elif reg2_e > len(self.mem) - 1:
+                      elif reg2_e > len(self.reg) - 1:
                             print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {reg2_e} | 0, {len(self.reg) -1}")
                             exit(1)
              elif opcode == 'Bne':
-                 if self.reg[self.inst_mem[self.ip][BRAN_SRC1]] != self.reg[self.inst_mem[self.ip][BRAN_SRC2]]:
-                     self.ip = self.inst_mem[self.ip][BRAN_INST_IDX]
-                     continue
-                 self.ip += 1
-   #     print(self.ip)    
+                   try:
+                       if self.reg[self.inst_mem[self.ip][BRAN_SRC1]] != self.reg[self.inst_mem[self.ip][BRAN_SRC2]]:
+                          ip_check = self.ip
+                          self.ip = self.inst_mem[self.ip][BRAN_INST_IDX]
+                          ip_except_check = self.inst_mem[self.ip]
+                          continue
+                       self.ip += 1
+                   except:
+                        if self.ip > len(self.inst_mem):
+                            inst_ip_e = program[ip_check + 1].replace('\n','')
+                            print(f"SimpleCPU_IPIndexError | IP:{ip_check} | {inst_ip_e} | {self.ip} | 0 , {len(self.inst_mem)-1}")
+                            exit(1)
+
+                        reg1_e = self.inst_mem[self.ip][BRAN_SRC1]
+                        reg2_e = self.inst_mem[self.ip][BRAN_SRC2]
+                        inst_e = program[self.ip + 1].replace('\n', '')
+                        if reg1_e > len(self.reg) - 1 :
+                             print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {reg1_e} | 0, {len(self.reg) -1 }")
+                             exit(1)
+                        elif reg2_e > len(self.reg) - 1:
+                             print(f"SimpleCPU_REGIndexError | IP:{self.ip} | {inst_e} | {reg2_e} | 0, {len(self.reg) -1}")
+                             exit(1)
         pass
      
     def print_status(self):
@@ -153,16 +253,11 @@ if __name__ == '__main__':
     if len(sys.argv) != 2:
         print("<Usage>: ./emulator <program.txt>") #program이나py파일이 하나라도 안들어왔을 경우 exception 처리 
         exit(1)
-
     with open(sys.argv[1]) as f:
         # 텍스트 파일의 데이터를 전부 읽어오는 코드 입니다.
         # 이 부분은 for loop 등 기타 방법으로 변형해서 사용해도 됩니다.
         data = f.readlines() 
-
     # 이 부분은 예시로 제공된 코드입니다. 실제로 동작하지 않으니 동작하도록 수정해서 사용해야 합니다.
     cpu = SimpleCPU(NUM_REGS, MEM_SZ)
     cpu.execute(data)
     cpu.print_status()  
-
-   # print(cpu.mem, cpu.reg)
-   # print(cpu.inst_mem)
