@@ -149,7 +149,7 @@ SimpleCPU 모듈
                           continue
                        self.ip += 1
                    except:
-                        if self.ip > len(self.inst_mem):
+                        if self.ip > len(self.inst_mem)-1:
                             inst_ip_e = program[ip_check + 1].replace('\n','')
                             print(f"SimpleCPU_IPIndexError | IP:{ip_check} | {inst_ip_e} | {self.ip} | 0 , {len(self.inst_mem)-1}")
                             exit(1)
@@ -172,7 +172,7 @@ SimpleCPU 모듈
                            continue
                        self.ip += 1 
                    except:
-                      if self.ip > len(self.inst_mem):
+                      if self.ip > len(self.inst_mem)-1:
                            inst_ip_e = program[ip_check + 1].replace('\n','')
                            print(f"SimpleCPU_IPIndexError | IP:{ip_check} | {inst_ip_e} | {self.ip} | 0 , {len(self.inst_mem)-1}")
                            exit(1)
@@ -195,7 +195,7 @@ SimpleCPU 모듈
                           continue
                        self.ip += 1
                    except:
-                        if self.ip > len(self.inst_mem):
+                        if self.ip > len(self.inst_mem)-1:
                             inst_ip_e = program[ip_check + 1].replace('\n','')
                             print(f"SimpleCPU_IPIndexError | IP:{ip_check} | {inst_ip_e} | {self.ip} | 0 , {len(self.inst_mem)-1}")
                             exit(1)
